@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+		body {
+            background-image: url('static/h2.webp'); /* Change 'path_to_your_image.jpg' to the path of your image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+			height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr{
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"],
+        input[type="submit"] {
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+		.goback-btn {
+            background-color: #8bd6e1; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .goback-btn:hover {
+            background-color: #8bd6e1; /* Darker green */
+        }
+		.back a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            background-color: green;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .back a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="back">
+    <a href="/staff_dashboard">Back</a>
+</div>    
+<h1>Project Data</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Project Name</th>
+                <th>Project ID</th>
+                <th>Project Description</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Assign To</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] }}</td>
+                <td>
+                    <form action="/assign_project" method="post">
+                        <input type="hidden" name="project_id" value="{{ row[0] }}">
+                        <input type="text" name="assigned_to" placeholder="Enter User ID">
+                        <input type="submit" value="Assign">
+                    </form>
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>User Data</h1>
+    <table>
+        <thead>
+            <tr>
+           
+                <th>ID</th>
+                <th>Name</th>
+                <th>User ID</th>
+                <th>Role</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for user_row in user_data %}
+            <tr>
+                <td>{{ user_row[0] }}</td>
+                <td>{{ user_row[1] }}</td>
+                <td>{{ user_row[2] }}</td>
+                <td>{{ user_row[4] }}</td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        function showAlert() {
+            alert("Project assigned successfully!");
+        }
+    </script>
+	<script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+		<script>
+		// JavaScript variable to store whether alerts should be shown
+		var showAlert1 = {{ 'true' if show_alert1 else 'false' }};
+		var showAlert2 = {{ 'true' if show_alert2 else 'false' }};
+		var showAlert3= {{ 'true' if show_alert3 else 'false'}};
+		var showAlert4= {{ 'true' if show_alert4 else 'false'}};
+	
+		// Function to trigger alerts based on the variables
+		function triggerAlerts() {
+			if (showAlert1) { 
+				alert("User Id And Password Missmatch");
+			}
+			if (showAlert2) {
+				alert("Registered Successfully, Wait for Admin Approval");
+			   
+			}
+			if (showAlert3){
+				alert("Your Id Didn't Verify");
+			}
+			if(showAlert4){
+				alert("Project Assigned Sucessfully")
+			}
+		}
+	
+		// Call the function when the page loads
+		window.onload = function() {
+			triggerAlerts();
+		};
+	</script>
+</body>
+</html>

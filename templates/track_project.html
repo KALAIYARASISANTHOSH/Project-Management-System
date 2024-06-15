@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+		body {
+            background-image: url('static/h2.webp'); /* Change 'path_to_your_image.jpg' to the path of your image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+			height: 100vh;
+        }
+		
+		.goback-btn {
+            background-color: #8bd6e1; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .goback-btn:hover {
+            background-color: #8bd6e1; /* Darker green */
+        }
+
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+			color: #8bd6e1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+			background-color: #f2f2f2;
+        }
+
+        th {
+            background-color: #8bd6e1;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+	<button class="goback-btn" onclick="goBack()">Go Back</button>
+    
+	<h1>TRACK PROJECT</h1>
+	
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Project Name</th>              
+                <th>Project ID</th>             
+                <th>Project Description</th>                
+                <th>Start Date</th>                
+                <th>End Date</th>                
+                <th>Developer Name</th>                
+                <th>Project Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row[0] }}</td> <!-- Assuming first column is ID -->
+                <td>{{ row[1] }}</td> <!-- Assuming second column is Name -->
+                <td>{{ row[2] }}</td> 
+                <td>{{ row[3] }}</td> 
+                <td>{{ row[4] }}</td> 
+                <td>{{ row[5] }}</td> 
+                <td>{{ row[6] }}</td>
+                <td>
+					{% if row[7] == 0 %}
+						<span style="color: #555;">Not Assigned</span>
+					{% elif row[7] == 1 %}
+						<span style="color: #007bff;">Pending</span>
+					{% elif row[7] == 2 %}
+						<span style="color: #28a745;">Task Finished</span>
+					{% elif row[7] == 3 %}
+						<span style="color: #dc3545;">Task Incomplete</span>
+					{% elif row[7] == 5 %}
+						<span style="color: #ffc107;">25% Completed</span>
+					{% elif row[7] == 6 %}
+						<span style="color: #17a2b8;">50% Completed</span>
+					{% elif row[7] == 7 %}
+						<span style="color: #FB771B;">75% Completed</span>
+					{% endif %}
+				</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+	<script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+	
+	<script>
+		// JavaScript variable to store whether alerts should be shown
+		var showAlert1 = {{ 'true' if show_alert1 else 'false' }};
+		var showAlert2 = {{ 'true' if show_alert2 else 'false' }};
+		var showAlert3= {{ 'true' if show_alert3 else 'false'}};
+		var showAlert4= {{ 'true' if show_alert4 else 'false'}};
+	
+		// Function to trigger alerts based on the variables
+		function triggerAlerts() {
+			if (showAlert1) { 
+				alert("User Id And Password Missmatch");
+			}
+			if (showAlert2) {
+				alert("Registered Successfully, Wait for Admin Approval");
+			   
+			}
+			if (showAlert3){
+				alert("Your Id Didn't Verify");
+			}
+			if(showAlert4){
+				alert("This Id not registered")
+			}
+		}
+	
+		// Call the function when the page loads
+		window.onload = function() {
+			triggerAlerts();
+		};
+	</script>
+</body>
+</html>

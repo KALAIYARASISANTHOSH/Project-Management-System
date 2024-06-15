@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Warning Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+		body {
+            background-image: url('static/ho.jpg'); /* Change 'path_to_your_image.jpg' to the path of your image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+			height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="email"],
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+		textarea {
+            width: 100%; /* Extend width to 100% */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+		.goback-btn {
+            background-color: #8bd6e1; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .goback-btn:hover {
+            background-color: #8bd6e1; /* Darker green */
+        }
+    </style>
+</head>
+<body>
+<button class="goback-btn" onclick="goBack()">Go Back</button>
+    <h1>Send Warning Email</h1>
+    <form action="/warning" method="post">
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required><br>
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required><br>
+        <label for="name">User Id:</label>
+        <input type="text" id="name" name="name" required><br>
+		<label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" required></textarea><br>
+        <button type="submit">Send Email</button>
+    </form>
+	
+	<script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+	
+	<script>
+		// JavaScript variable to store whether alerts should be shown
+		var showAlert1 = {{ 'true' if show_alert1 else 'false' }};
+		var showAlert2 = {{ 'true' if show_alert2 else 'false' }};
+		var showAlert3= {{ 'true' if show_alert3 else 'false'}};
+		var showAlert4= {{ 'true' if show_alert4 else 'false'}};
+	
+		// Function to trigger alerts based on the variables
+		function triggerAlerts() {
+			if (showAlert1) { 
+				alert("User Id And Password Missmatch");
+			}
+			if (showAlert2) {
+				alert("Registered Successfully, Wait for Admin Approval");
+			   
+			}
+			if (showAlert3){
+				alert("Your Id Didn't Verify");
+			}
+			if(showAlert4){
+				alert("Warning Mail Sent Successfully")
+			}
+		}
+	
+		// Call the function when the page loads
+		window.onload = function() {
+			triggerAlerts();
+		};
+	</script>
+	
+</body>
+</html>

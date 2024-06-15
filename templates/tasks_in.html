@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('static/dd.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .projects-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .project-container {
+            width: 45%;
+            margin: 20px 2.5%;
+          
+            box-shadow: 0 0 25px black;
+            backdrop-filter: blur(10px);
+        }
+        .project-container div {
+            margin-bottom: 10px;
+        }
+        .project-container label {
+            font-weight: bold;
+        }
+        .project-container input[type="submit"] {
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        .project-container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .goback-btn {
+            background-color: #8bd6e1;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .goback-btn:hover {
+            background-color: #69c5d9;
+        }
+        .status-box {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+        }
+        .red {
+            background-color: red;
+        }
+        .blue {
+            background-color: #007bff;
+        }
+        .orange {
+            background-color: orange;
+        }
+        .green {
+            background-color: #28a745;
+        }
+        .progress-box {
+            width: 100%; /* Adjust the width as needed */
+            height: 20px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+        .progress-indicator {
+            height: 100%;
+            background-color: #007bff; /* Default color */
+        }
+        .back a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            background-color: green;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .back a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="back">
+    <a href="/user_view">Back</a>
+</div>
+<h1>Project Data</h1>
+<div class="projects-wrapper">
+    {% for row in data %}
+    <div class="project-container">
+        <div><label>ID:</label> {{ row[0] }}</div>
+        <div><label>Project Name:</label> {{ row[1] }}</div>
+        <div><label>Project ID:</label> {{ row[2] }}</div>
+        <div><label>Project Description:</label> {{ row[3] }}</div>
+        <div><label>Start Date:</label> {{ row[4] }}</div>
+        <div><label>End Date:</label> {{ row[5] }}</div>
+        <div><label>Developer Name:</label> {{ row[6] }}</div>
+        
+         <div class="status-label">Project Status:</div>
+			<div class="progress-status">
+            {% if row[7] == 2 %}
+                <div class="status-box green" style="width: 100%; text-align: center;">Completed</div>
+            {% elif row[7] == 3 %}
+                <div class="status-box red" style="width: 100%; text-align: center;">Not completed</div>
+            {% endif %}
+        </div>
+            
+        
+        
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    function changeText(element) {
+        if (element.innerText === 'Take Action') {
+            element.innerText = 'In Process';
+        }
+    }
+</script>
+<script>
+    function updateCompletion(projectId, progress) {
+        document.getElementById('progress-' + projectId).value = progress;
+        document.getElementById('task-form-' + projectId).submit();
+    }
+</script>
+
+<script>
+    // JavaScript variable to store whether alerts should be shown
+    var showAlert1 = {{ 'true' if show_alert1 else 'false' }};
+    var showAlert2 = {{ 'true' if show_alert2 else 'false' }};
+    var showAlert3= {{ 'true' if show_alert3 else 'false' }};
+    var showAlert4= {{ 'true' if show_alert4 else 'false' }};
+
+    // Function to trigger alerts based on the variables
+    function triggerAlerts() {
+        if (showAlert1) { 
+            alert("User Id And Password Missmatch");
+        }
+        if (showAlert2) {
+            alert("Registered Successfully!");
+        }
+        if (showAlert3){
+            alert("Your Id Didn't Verify");
+        }
+        if(showAlert4){
+            alert("Updated Successfully");
+        }
+    }
+
+    // Call the function when the page loads
+    window.onload = function() {
+        triggerAlerts();
+    };
+</script>
+</body>
+</html>

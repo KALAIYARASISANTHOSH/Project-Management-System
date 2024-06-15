@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+			
+			border-radius: 5px;
+			padding: 20px;
+			box-shadow: 0 0 25px black;
+			backdrop-filter: blur(10px); /* Apply a blur effect to the backdrop */
+		}
+
+		 nav {
+            background-color: #051E40;
+            overflow: hidden;
+			
+        }
+
+        nav a {
+            float: right;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: white;
+			
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+			
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+			color: white;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 75%;
+            padding: 10px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+		header {
+			background-color: rgba(22, 34, 57, 0.95);
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 80px;
+			box-shadow: 0 0 25px 0 black;
+		}
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 3px;
+            border: none;
+            background-color: #244D77;;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+		body {
+            background-image: url('static/admin.jpg'); /* Change 'path_to_your_image.jpg' to the path of your image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+			height: 100vh;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #EDA711;
+        }
+		.container h1{
+            position: fixed;
+            
+            left: 50px;
+            font-size: 30px;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: white;
+        }
+        em {
+    font-style: normal;
+    color: #EDA711;
+}
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+    <div class="container">
+        <h1>
+        <em>Project</em>
+        Management System
+		</h1>
+        <a href="/" class="home" id="home"  onclick="showhome()">Home</a>
+        
+    </div>
+    </nav>
+</header>
+
+
+<div class="login-container">
+    <h2>Admin Login</h2>
+    <form action="adminview" method="POST">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn">Login</button>
+    </form>
+</div>
+<script>
+		// JavaScript variable to store whether alerts should be shown
+		var showAlert1 = {{ 'true' if show_alert1 else 'false' }};
+		var showAlert2 = {{ 'true' if show_alert2 else 'false' }};
+		var showAlert3= {{ 'true' if show_alert3 else 'false'}};
+		var showAlert4= {{ 'true' if show_alert4 else 'false'}};
+	
+		// Function to trigger alerts based on the variables
+		function triggerAlerts() {
+			if (showAlert1) { 
+				alert("User Id And Password Missmatch");
+			}
+			if (showAlert2) {
+				alert("Registered Successfully!");
+			   
+			}
+			if (showAlert3){
+				alert("Your Id Didn't Verify");
+			}
+			if(showAlert4){
+				alert("This Id not registered")
+			}
+		}
+	
+		// Call the function when the page loads
+		window.onload = function() {
+			triggerAlerts();
+		};
+	</script>
+
+</body>
+</html>

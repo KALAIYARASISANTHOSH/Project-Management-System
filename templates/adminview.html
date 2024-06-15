@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project Management Tool</title>
+    <style>
+        /* CSS for navigation bar */
+        nav {
+            background-color: #051E40;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        nav a {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s;
+        }
+		header {
+			background-color: rgba(22, 34, 57, 0.95);
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 80px;
+			box-shadow: 0 0 25px 0 black;
+		}
+		body {
+            background-image: url('static/h2.webp'); /* Change 'path_to_your_image.jpg' to the path of your image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+			height: 100vh;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        /* Style for content area */
+        .container {
+            margin: 20px;
+        }
+
+        /* CSS for hiding/showing sections */
+        .hide {
+            display: none;
+        }
+		.responsive-table {
+			width: 100%;
+		    list-style-type: none;
+		    padding: 0;
+		    margin-top: 50px;
+		}
+		.table-header {
+		 background-color: #8fe2f7;
+		 color: black;
+		 display: flex;
+		 justify-content: space-between;
+		 border-radius: 3px;
+		 padding: 15px;
+		 font-weight: bold;
+		}
+
+		.table-row {
+		 background-color: #ffffff;
+		 box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+		 border-radius: 3px;
+		 padding: 15px;
+		 margin-bottom: 20px;
+		 display: flex;
+		 justify-content: space-between;
+		 align-items: center;
+		}
+
+		.table-header > .col,
+		.table-row > .col {
+			width: calc(180% / 10); /* Assuming there are 6 columns */
+			/* You can adjust the number of columns as per your actual structure */
+			/* You can also adjust this value as needed */
+		}
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="/index">Home</a>
+        <a href="/assign">Projects Assigns</a>
+        <a href="/track">Track Project</a>
+        <a href="#" onclick="showuserdetails()">User Approval</a>
+        <a href="#" onclick="showstaffdetails()">Manager Approval</a>
+        <a href="#" onclick="showencryptuserdetails()">Show User</a>
+        <a href="#" onclick="showencryptstaffdetails()">Show Managers</a>
+        <a href="/warning_data">Warning Users</a>
+    </nav>
+</header>
+
+<div id="user-details"  style="display: none;">
+
+<center>
+<h1> user Details</h1>
+</center>
+<ul class="responsive-table">
+    <li class="table-header">
+	   <div class="col col-1">S.No</div>
+        <div class="col col-1">User Name</div>
+        <div class="col col-2">User ID</div>
+        <div class="col col-3">User Mail ID</div>
+        <div class="col col-4">Designation</div>
+        <div class="col col-5">Approve </div>
+    </li>
+
+
+
+    {% for complaint in data %}
+   
+        <form action="/approve_user" method="post" onsubmit="showAlert()">
+            <li class="table-row">
+                <div class="col col-1" data-label="S.No">{{complaint[0]}}</div>
+                <div class="col col-2" data-label="Name">{{complaint[1]}}</div>
+                <div class="col col-3" data-label="Email">{{complaint[2]}}</div>
+                <div class="col col-4" data-label="Address">{{complaint[3]}}</div>
+                <div class="col col-4" data-label="PhoneNo">{{complaint[4]}}</div>
+                <div class="col col-5" data-label="Complaint">
+                    <input type="hidden" name="idnum" value="{{ complaint[0] }}">
+                <input type="submit" value="send">
+                </div>
+               
+        
+
+            
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+
+    </div>
+
+
+
+
+<!--    -------------------------------------------------------                   ---- --- -->
+
+    <div id="staff-details"  style="display: none;">
+        
+
+        <center>
+        <h1> staff Details</h1>
+        </center>
+      
+                <ul class="responsive-table">
+                    <li class="table-header">
+                        <div class="col col-1">S.No</div>
+                        <div class="col col-2">Manager Name</div>
+                        <div class="col col-3">Manager ID</div>
+                        <div class="col col-4">Manager Mail ID</div>
+                        <div class="col col-5">Designation</div>
+                        <div class="col col-6">Approve </div>
+                    </li>
+            {% for complaint in data1 %}
+    
+                <form action="/approve_staff" method="post" onsubmit="showAlert()">
+                    <li class="table-row">
+                        <div class="col col-1" data-label="S.No">{{complaint[0]}}</div>
+                        <div class="col col-2" data-label="Name">{{complaint[1]}}</div>
+                        <div class="col col-3" data-label="Email">{{complaint[2]}}</div>
+                        <div class="col col-4" data-label="Address">{{complaint[3]}}</div>
+                        <div class="col col-4" data-label="PhoneNo">{{complaint[4]}}</div>
+                        <div class="col col-5" data-label="Complaint">
+                            <input type="hidden" name="idnum" value="{{ complaint[0] }}">
+                        <input type="submit" value="send">
+                        </div>
+                </form>
+            </li>
+            {% endfor %}
+            
+        </ul>
+            
+</div>
+
+
+<!-- -------------------------------------------------------------------------------------------------------------------------------------- -->
+           
+
+<div id="encrypt_staff-details"  style="display: none;">
+    
+                <center>
+                <h1> staff Details</h1>
+                
+                </form>
+                </center>
+                    <ul class="responsive-table">
+                    <li class="table-header">
+                        <div class="col col-1">S.No</div>
+                        <div class="col col-2">Manager Name</div>
+                        <div class="col col-3">Manager ID</div>
+                        <div class="col col-4">Email</div>
+                        <div class="col col-5">Designation</div>
+                        
+                    </li>
+                    {% for complaint in data3 %}
+                    <li class="table-row">
+                        <div class="col col-1" data-label="S.No">{{complaint[0]}}</div>
+                        <div class="col col-2" data-label="Name">{{complaint[1]}}</div>
+                        <div class="col col-3" data-label="Email">{{complaint[2]}}</div>
+                        <div class="col col-4" data-label="Address">{{complaint[3]}}</div>
+                        <div class="col col-5" data-label="PhoneNo">{{complaint[4]}}</div>
+                        
+                    </li>
+                    {% endfor %}
+                    
+                      </ul>
+                    
+</div>
+
+<!-- -------------------------------------------------------------------------------------------------------- -->
+
+    <div id="encrypt_user-details"  style="display: none;">
+                     
+                        <center>
+                        <h1> user Details</h1>
+                        
+                        </center>
+                        <ul class="responsive-table">
+                            <li class="table-header">
+                                <div class="col col-1">S.No</div>
+                                <div class="col col-2">User Name</div>
+                                <div class="col col-3">User ID</div>
+                                <div class="col col-4">User Email</div>
+                                <div class="col col-5">Designation</div>
+                                
+                            </li>
+                            {% for complaint in data2 %}
+                            <li class="table-row">
+                                <div class="col col-1" data-label="S.No">{{complaint[0]}}</div>
+                                <div class="col col-2" data-label="Name">{{complaint[1]}}</div>
+                                <div class="col col-3" data-label="Email">{{complaint[2]}}</div>
+                                <div class="col col-4" data-label="Address">{{complaint[3]}}</div>
+                                <div class="col col-5" data-label="PhoneNo">{{complaint[4]}}</div>
+                                
+                            </li>
+                            {% endfor %}
+                            
+                        </ul>
+                            
+                            </div>
+</div>
+
+<!-- -----------------------------               ------------                ----------------- -->
+		   
+	
+	
+<script>
+        function showAlert() {
+            alert("Successfully accept the details .");
+        }
+
+
+       
+            function showuserdetails() {
+              document.getElementById('user-details').style.display = 'block';
+              document.getElementById('staff-details').style.display = 'none';
+              document.getElementById('encrypt_user-details').style.display = 'none';
+              document.getElementById('encrypt_staff-details').style.display = 'none';
+              document.getElementById('mark-details').style.display = 'none';
+              document.getElementById('document-details').style.display = 'none';   
+
+
+              
+            }
+
+            function showstaffdetails() {
+                document.getElementById('user-details').style.display = 'none';
+                document.getElementById('staff-details').style.display = 'block';
+                document.getElementById('encrypt_user-details').style.display = 'none';
+                document.getElementById('encrypt_staff-details').style.display = 'none';
+                document.getElementById('mark-details').style.display = 'none';
+                document.getElementById('document-details').style.display = 'none';   
+
+
+                
+              }
+
+              function showencryptuserdetails() {
+                document.getElementById('user-details').style.display = 'none';
+                document.getElementById('staff-details').style.display = 'none';
+                document.getElementById('encrypt_user-details').style.display = 'block';
+                document.getElementById('encrypt_staff-details').style.display = 'none';   
+                document.getElementById('mark-details').style.display = 'none';
+                document.getElementById('document-details').style.display = 'none';   
+
+            
+              }
+  
+              function showencryptstaffdetails() {
+                  document.getElementById('user-details').style.display = 'none';
+                  document.getElementById('staff-details').style.display = 'none';
+                  document.getElementById('encrypt_user-details').style.display = 'none';
+                  document.getElementById('encrypt_staff-details').style.display = 'block';
+                  document.getElementById('mark-details').style.display = 'none';   
+                  document.getElementById('document-details').style.display = 'none';   
+
+                }
+                
+                function showusermark() {
+                    document.getElementById('user-details').style.display = 'none';
+                    document.getElementById('staff-details').style.display = 'none';
+                    document.getElementById('encrypt_user-details').style.display = 'none';
+                    document.getElementById('encrypt_staff-details').style.display = 'none';
+                    document.getElementById('document-details').style.display = 'none';   
+
+                    document.getElementById('mark-details').style.display = 'block';   
+                  }
+
+                  function showuserdocument() {
+                    document.getElementById('user-details').style.display = 'none';
+                    document.getElementById('staff-details').style.display = 'none';
+                    document.getElementById('encrypt_user-details').style.display = 'none';
+                    document.getElementById('encrypt_staff-details').style.display = 'none';
+                    document.getElementById('mark-details').style.display = 'none';  
+                    document.getElementById('document-details').style.display = 'block';   
+ 
+                  }
+                         
+    </script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const acceptButtons = document.querySelectorAll(".accept-button");
+            acceptButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    const itemId = button.getAttribute("data-id");
+                    const numberInput = document.querySelector("input[name='number']");
+                    numberInput.value = itemId; 
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const acceptButtons = document.querySelectorAll(".accept-button1");
+            acceptButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    const itemId = button.getAttribute("data-id");
+                    const numberInput = document.querySelector("input[name='number1']");
+                    numberInput.value = itemId; 
+                });
+            });
+        });
+    </script>
+
+	
+</body>
+</html>
+          

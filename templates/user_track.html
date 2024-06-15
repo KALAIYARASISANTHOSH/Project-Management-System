@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Project</title>
+</head>
+<body>
+    <h1>Project Data</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Project Name</th>
+                <th>Project ID</th>
+                <th>Project Description</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Assign To</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] }}</td>
+                <td>
+                    <form action="/assign_project" method="post">
+                        <input type="hidden" name="project_id" value="{{ row[0] }}">
+                        <input type="text" name="assigned_to" placeholder="Enter name">
+                        <input type="submit" value="Assign">
+                    </form>
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+	
+	
+	<h1>User Data</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>User ID</th>
+                <th>Role</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for user_row in user_data %}
+            <tr>
+                <td>{{ user_row[0] }}</td>
+                <td>{{ user_row[1] }}</td>
+                <td>{{ user_row[2] }}</td>
+                <td>{{ user_row[4] }}</td>
+                <!-- Add more cells as needed -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        function showAlert() {
+            alert("Project assigned successfully!");
+        }
+    </script>
+</body>
+</html>

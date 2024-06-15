@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #054A8A;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+			color: white;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			backdrop-filter: blur(10px);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+        }
+		.login-container {
+			
+			border-radius: 5px;
+			padding: 20px;
+			box-shadow: 0 0 25px black;
+			backdrop-filter: blur(10px); /* Apply a blur effect to the backdrop */
+		}
+
+        button[type="submit"] {
+            background-color: #8bd6e1;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+		.goback-btn {
+            background-color: #8bd6e1; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+		.goback-btn:hover {
+            background-color: #45a049; /* Darker green */
+        }
+    </style>
+</head>
+<body>
+	<button class="goback-btn" onclick="goBack()">Go Back</button>
+    <h2>PROJECT DETAILS</h2>
+    <form method="post" action="/assign">
+        <div>
+            <label for="project_name">Project Name:</label>
+            <input type="text" id="project_name" name="project_name" required>
+        </div>
+        <div>
+            <label for="project_ID">Project ID:</label>
+            <input type="text" id="project_ID" name="project_ID" required>
+        </div>
+        <div>
+            <label for="project_descrip">Project Description:</label>
+            <textarea id="project_descrip" name="project_descrip" required></textarea>
+        </div>
+        <div>
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" required>
+        </div>
+        <div>
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" required>
+        </div>
+        <button type="submit">Add Project</button>
+    </form>
+	
+	<script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+	<script>
+		// JavaScript variable to store whether alerts should be shown
+		var showAlert1 = {{ 'true' if show_alert1 else 'false' }};
+		var showAlert2 = {{ 'true' if show_alert2 else 'false' }};
+		var showAlert3= {{ 'true' if show_alert3 else 'false'}};
+		var showAlert4= {{ 'true' if show_alert4 else 'false'}};
+	
+		// Function to trigger alerts based on the variables
+		function triggerAlerts() {
+			if (showAlert1) { 
+				alert("User Id And Password Missmatch");
+			}
+			if (showAlert2) {
+				alert("Registered Successfully!");
+			   
+			}
+			if (showAlert3){
+				alert("Your Id Didn't Verify");
+			}
+			if(showAlert4){
+				alert("Project Added Successfully")
+			}
+		}
+	
+		// Call the function when the page loads
+		window.onload = function() {
+			triggerAlerts();
+		};
+	</script>
+
+</body>
+</html>
